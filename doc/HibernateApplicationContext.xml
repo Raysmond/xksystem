@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/xksystem" />
+		<property name="username" value="xksystem" />
+		<property name="password" value="xksystem" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+
+				<prop key="hibernate.generate_statistics">false</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.max_fetch_depth">0</prop>
+
+				<prop key="c3p0.acquire_increment">1</prop>
+				<prop key="c3p0.idle_test_period">100</prop>
+				<prop key="c3p0.max_size">20</prop>
+				<prop key="c3p0.max_statements">0</prop>
+				<prop key="c3p0.min_size">10</prop>
+				<prop key="c3p0.timeout">100</prop>
+			</props>
+		</property>
+		
+	    <property name="eventListeners">
+	        <map>
+	            <entry key="post-load">
+	                <ref local="eventListener"/>
+	            </entry>
+	        </map>
+	    </property>
+		
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="persistenceManagerTaget"
+		class="edu.fudan.ss.persistence.hibernate.common.PMHibernateImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="persistenceManager"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="target" ref="persistenceManagerTaget" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="courseManagerTaget"
+		class="edu.fudan.ss.persistence.hibernate.CourseManager">
+		<property name="persistenceManager" ref="persistenceManager" />
+	</bean>
+
+	<bean id="courseManager"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="target" ref="courseManagerTaget" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="eventListener"
+		class="edu.fudan.ss.persistence.hibernate.EventListener">
+	</bean>
+
+</beans>
