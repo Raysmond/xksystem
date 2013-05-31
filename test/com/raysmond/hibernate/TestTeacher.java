@@ -9,11 +9,9 @@ import edu.fudan.ss.persistence.hibernate.common.HibernateBaseTest;
 public class TestTeacher extends HibernateBaseTest {
 
 	@Test
-	@Rollback(false)
+	// @Rollback(false)
 	public void testCreateTeacher() {
-		Teacher teacher = new Teacher();
-		teacher.setJobNumber("1020");
-		getPersistenceManager().save(teacher);
+		Teacher teacher = Teacher.create("ateacher", "1110", getPersistenceManager());
 		assertObjectPersisted(teacher);
 	}
 	

@@ -9,7 +9,7 @@ import edu.fudan.ss.persistence.hibernate.common.HibernateBaseTest;
 public class TestTerm extends HibernateBaseTest {
 
 	@Test
-	@Rollback(false)
+	// @Rollback(false)
 	public void testCreateTerm() {
 		Term term = new Term();
 		term.setYear(2013);
