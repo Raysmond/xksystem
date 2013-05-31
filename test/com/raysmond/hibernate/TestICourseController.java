@@ -34,12 +34,36 @@ public class TestICourseController extends HibernateBaseTest {
 
 	@Test
 	public void testStartChoosingCourse() {
-		fail("not implemented yet");
+		// create a term
+		Term term = Term.create(2012, ChooseCourseStatus.NOT_STARTED,
+				ConcreteTerm.ONE, getPersistenceManager());
+		this.assertObjectPersisted(term);
+		
+		courseController.startChoosingCourse(term);
+		
+		String hql = "from Term t where t.id = :id";
+		Query query = getPersistenceManager().createQuery(hql)
+				.setParameter("id", term.getId());
+		List<Term> terms = query.list();
+		assertEquals(1,terms.size());
+		assertEquals(ChooseCourseStatus.STARTED,terms.get(0).getStatus());
 	}
 
 	@Test
 	public void testEndChoosingCourse() {
-		fail("not implemented yet");
+		// create a term
+		Term term = Term.create(2012, ChooseCourseStatus.NOT_STARTED,
+				ConcreteTerm.ONE, getPersistenceManager());
+		this.assertObjectPersisted(term);
+		
+		courseController.endChoosingCourse(term);
+		
+		String hql = "from Term t where t.id = :id";
+		Query query = getPersistenceManager().createQuery(hql)
+				.setParameter("id", term.getId());
+		List<Term> terms = query.list();
+		assertEquals(1,terms.size());
+		assertEquals(ChooseCourseStatus.END,terms.get(0).getStatus());		
 	}
 
 	@Test
