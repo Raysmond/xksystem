@@ -41,7 +41,7 @@ public class IChooseCourseControllerImpl implements IChooseCourseController {
 		if (course.getTerm().canChooseCourse()) {
 			//the student already chosen the course
 			if(course.isStudentInCourse(student)){
-				if(course.removeAstudent(student)){
+				if(course.removeCourseStudent(student)){
 					persistenceManager.save(course);
 					return true;
 				}

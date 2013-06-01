@@ -12,17 +12,25 @@ import edu.fudan.ss.persistence.hibernate.common.IPersistenceManager;
 
 @Entity
 public class Student extends Account {
-	//学号
+	// student number
 	private String studentNumber;
-	//所选课程
-	//-------------------------
+	//Courses chosen by the student
 	@ManyToMany(
             targetEntity=com.raysmond.hibernate.TermCourse.class,
             cascade ={CascadeType.PERSIST,CascadeType.MERGE},
             fetch=FetchType.LAZY
     )
 	private Collection<TermCourse> choosedCourses = new ArrayList<TermCourse>();
+	
+	//Courses followed by the student
+	@ManyToMany(
+            targetEntity=com.raysmond.hibernate.TermCourse.class,
+            cascade ={CascadeType.PERSIST,CascadeType.MERGE},
+            fetch=FetchType.LAZY
+    )
+	private Collection<TermCourse> followedCourses = new ArrayList<TermCourse>();
 
+	
 	public static Student create(String name,String studentNumber,
 			IPersistenceManager pm){
 		Student student = new Student();
@@ -30,7 +38,14 @@ public class Student extends Account {
 		student.setStudentNumber(studentNumber);
 		pm.save(student);
 		return student;
-		
+	}
+	
+	public Collection<TermCourse> getFollowedCourses() {
+		return followedCourses;
+	}
+
+	public void setFollowedCourses(Collection<TermCourse> followedCourses) {
+		this.followedCourses = followedCourses;
 	}
 	
 	public Collection<TermCourse> getChoosedCourses() {

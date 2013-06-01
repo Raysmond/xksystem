@@ -3,7 +3,7 @@ package com.raysmond.hibernate;
 import javax.persistence.Embeddable;
 
 /**
- * ÉÏ¿Î¿ÎÊ±
+ * Course hours
  * @author Raysmond
  *
  */
@@ -11,6 +11,18 @@ import javax.persistence.Embeddable;
 public class ClassHour {
 	private Integer begin;
 	private Integer end;
+	
+	/**
+	 * To check whether two class hours have overlaps 
+	 * @param hours
+	 * @return
+	 */
+	public boolean isOverlapped(ClassHour hours){
+		if(begin>hours.getEnd()||end<hours.getBegin()){
+			return false;
+		}
+		return true;
+	}
 	
 	public Integer getBegin() {
 		return begin;
