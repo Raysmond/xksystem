@@ -21,7 +21,7 @@ public class TestICourseController extends HibernateBaseTest {
 	public void testRegisterTermCourse() {
 		// create a term
 		Term term = Term.create(2012, ChooseCourseStatus.NOT_STARTED,
-				ConcreteTerm.ONE, getPersistenceManager());
+				ConcreteTerm.FIRST_TERM, getPersistenceManager());
 
 		// create a teacher
 		Teacher teacher = Teacher.create("OOTeacher", "1111",
@@ -36,7 +36,7 @@ public class TestICourseController extends HibernateBaseTest {
 	public void testStartChoosingCourse() {
 		// create a term
 		Term term = Term.create(2012, ChooseCourseStatus.NOT_STARTED,
-				ConcreteTerm.ONE, getPersistenceManager());
+				ConcreteTerm.FIRST_TERM, getPersistenceManager());
 		this.assertObjectPersisted(term);
 		
 		courseController.startChoosingCourse(term);
@@ -53,7 +53,7 @@ public class TestICourseController extends HibernateBaseTest {
 	public void testEndChoosingCourse() {
 		// create a term
 		Term term = Term.create(2012, ChooseCourseStatus.NOT_STARTED,
-				ConcreteTerm.ONE, getPersistenceManager());
+				ConcreteTerm.FIRST_TERM, getPersistenceManager());
 		this.assertObjectPersisted(term);
 		
 		courseController.endChoosingCourse(term);
@@ -75,7 +75,7 @@ public class TestICourseController extends HibernateBaseTest {
 	public void testAjustCourseStudentLimit() {
 		// create a term
 		Term term = Term.create(2012, ChooseCourseStatus.NOT_STARTED,
-				ConcreteTerm.ONE, getPersistenceManager());
+				ConcreteTerm.FIRST_TERM, getPersistenceManager());
 
 		// create a teacher
 		Teacher teacher = Teacher.create("OOTeacher", "1111",

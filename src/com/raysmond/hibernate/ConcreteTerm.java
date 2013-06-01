@@ -1,5 +1,5 @@
 package com.raysmond.hibernate;
 
 public enum ConcreteTerm {
-	ONE,TWO
+	FIRST_TERM,SECOND_TERM
 }

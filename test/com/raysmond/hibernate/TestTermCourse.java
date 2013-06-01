@@ -20,7 +20,7 @@ public class TestTermCourse extends HibernateBaseTest {
 	public void testCreateTermCourse() {
 		//create a term
 		Term term = Term.create(2013, ChooseCourseStatus.NOT_STARTED,
-				ConcreteTerm.ONE, getPersistenceManager());
+				ConcreteTerm.FIRST_TERM, getPersistenceManager());
 		
 		//create a teacher
 		Teacher teacher = Teacher.create("OOTeacher","1102", getPersistenceManager());
@@ -89,7 +89,7 @@ public class TestTermCourse extends HibernateBaseTest {
 	
 	@Test
 	public void testConflictCourse(){
-		Term term = Term.create(2013, ChooseCourseStatus.NOT_STARTED, ConcreteTerm.ONE, getPersistenceManager());
+		Term term = Term.create(2013, ChooseCourseStatus.NOT_STARTED, ConcreteTerm.FIRST_TERM, getPersistenceManager());
 		TermCourse course0 = TermCourse.create(term, "OOT_0", "Z2207", 50, getPersistenceManager());
 		TermCourse course1 = TermCourse.create(term, "Software Engineering", "Z2207", 50, getPersistenceManager());
 		TermCourse course2 = TermCourse.create(term, "Computer Architecture", "Z2208", 50, getPersistenceManager());

@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 
 import org.hibernate.Query;
@@ -20,9 +22,10 @@ public class Term extends BaseModelObject {
 	private Integer year;
 	//选课状态
 	private ChooseCourseStatus status = ChooseCourseStatus.NOT_STARTED;
-	//期
+	// concrete term. For example FIRST_TERM or SECOND_TERM
+	// @Enumerated(EnumType.STRING)
 	private ConcreteTerm concreteTerm;
-	//学期课程集合
+	// course list in the term
 	@OneToMany(mappedBy = "term", cascade = { CascadeType.ALL })
 	private Collection<TermCourse> courses = new ArrayList<TermCourse>();
 	

@@ -95,12 +95,15 @@ public class TermCourse extends Course {
 		boolean conflict = false;
 		boolean addressConflict = course.getAddress().equals(getAddress());
 		Iterator<CourseSchedule> schedules1 = course.getSchedule().iterator();
-		while(schedules1.hasNext()){
+		while (schedules1.hasNext()) {
 			CourseSchedule _schedule1 = schedules1.next();
 			Iterator<CourseSchedule> schedules0 = this.getSchedule().iterator();
-			while(schedules0.hasNext()){
+			while (schedules0.hasNext()) {
+				// Check every two schedules in the two course whether there are
+				// conflicts both in address and schedule
 				CourseSchedule _schedule0 = schedules0.next();
-				if(addressConflict&&_schedule0.isOverlapped(_schedule1)){
+				if (addressConflict && _schedule0.isOverlapped(_schedule1)) {
+					// detect one conflict both in address and schedule
 					conflict = true;
 					break;
 				}
