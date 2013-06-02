@@ -2,11 +2,14 @@ package com.raysmond.hibernate;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 
 import com.raysmond.hibernate.controller.ICourseController;
 
@@ -18,6 +21,7 @@ public class TestICourseController extends HibernateBaseTest {
 	ICourseController courseController;
 
 	@Test
+	// @Rollback(false)
 	public void testRegisterTermCourse() {
 		// create a term
 		Term term = Term.create(2012, ChooseCourseStatus.NOT_STARTED,
@@ -26,9 +30,19 @@ public class TestICourseController extends HibernateBaseTest {
 		// create a teacher
 		Teacher teacher = Teacher.create("OOTeacher", "1111",
 				getPersistenceManager());
+		
+		Collection<CourseSchedule> schedules = new ArrayList<CourseSchedule>();
+		CourseSchedule schedule0 = new CourseSchedule();
+		CourseSchedule schedule1 = new CourseSchedule();
+		schedule0.setWeekday(WeekDay.Monday);
+		schedule0.setClasshour(new ClassHour(6,7));
+		schedule1.setWeekday(WeekDay.Wednesday);
+		schedule1.setClasshour(new ClassHour(8,9));
+		schedules.add(schedule0);
+		schedules.add(schedule1);
 
 		TermCourse course = courseController.registerTermCourse("OOT_2012",
-				"Z2207", 50, teacher, term);
+				"Z2207", 50,schedules, teacher, term);
 		this.assertObjectPersisted(course);
 	}
 
@@ -81,9 +95,19 @@ public class TestICourseController extends HibernateBaseTest {
 		Teacher teacher = Teacher.create("OOTeacher", "1111",
 				getPersistenceManager());
 
+		Collection<CourseSchedule> schedules = new ArrayList<CourseSchedule>();
+		CourseSchedule schedule0 = new CourseSchedule();
+		CourseSchedule schedule1 = new CourseSchedule();
+		schedule0.setWeekday(WeekDay.Monday);
+		schedule0.setClasshour(new ClassHour(6,7));
+		schedule1.setWeekday(WeekDay.Wednesday);
+		schedule1.setClasshour(new ClassHour(8,9));
+		schedules.add(schedule0);
+		schedules.add(schedule1);
+		
 		// save course
 		TermCourse course = courseController.registerTermCourse("OOT_2012",
-				"Z2207", 50, teacher, term);
+				"Z2207", 50,schedules, teacher, term);
 		this.assertObjectPersisted(course);
 
 		// ajust students limit from 50 to 60
@@ -98,4 +122,5 @@ public class TestICourseController extends HibernateBaseTest {
 		assertEquals(1, courses.size());
 		assertEquals(60, courses.get(0).getStudentsLimit().intValue());
 	}
+	
 }

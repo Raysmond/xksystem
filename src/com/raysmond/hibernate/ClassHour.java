@@ -12,6 +12,15 @@ public class ClassHour {
 	private Integer begin;
 	private Integer end;
 	
+	public ClassHour(){
+		
+	}
+	
+	public ClassHour(Integer begin,Integer end){
+		this.begin = begin;
+		this.end = end;
+	}
+	
 	/**
 	 * To check whether two class hours have overlaps 
 	 * @param hours

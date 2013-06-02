@@ -29,7 +29,9 @@ public class IChooseCourseControllerImpl implements IChooseCourseController {
 			if (course.getStudents().size() < course.getStudentsLimit()
 					&& !course.isStudentInCourse(student)) {
 				course.getStudents().add(student);
+				student.getChoosedCourses().add(course);
 				persistenceManager.save(course);
+				persistenceManager.save(student);
 				return true;
 			}
 		}
@@ -39,10 +41,12 @@ public class IChooseCourseControllerImpl implements IChooseCourseController {
 	@Override
 	public boolean dropCourse(Student student, TermCourse course) {
 		if (course.getTerm().canChooseCourse()) {
-			//the student already chosen the course
-			if(course.isStudentInCourse(student)){
-				if(course.removeCourseStudent(student)){
+			// the student already chosen the course
+			if (course.isStudentInCourse(student)) {
+				if (course.removeCourseStudent(student)
+						&& student.getChoosedCourses().remove(course)) {
 					persistenceManager.save(course);
+					persistenceManager.save(student);
 					return true;
 				}
 			}

@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import edu.fudan.ss.persistence.hibernate.common.IPersistenceManager;
@@ -20,6 +21,7 @@ public class Student extends Account {
             cascade ={CascadeType.PERSIST,CascadeType.MERGE},
             fetch=FetchType.LAZY
     )
+	@JoinTable(name = "Student_Choose_Course") 
 	private Collection<TermCourse> choosedCourses = new ArrayList<TermCourse>();
 	
 	//Courses followed by the student
@@ -28,6 +30,7 @@ public class Student extends Account {
             cascade ={CascadeType.PERSIST,CascadeType.MERGE},
             fetch=FetchType.LAZY
     )
+	@JoinTable(name = "Student_Follow_Course") 
 	private Collection<TermCourse> followedCourses = new ArrayList<TermCourse>();
 
 	

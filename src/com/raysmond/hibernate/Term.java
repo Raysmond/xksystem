@@ -2,6 +2,7 @@ package com.raysmond.hibernate;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -18,9 +19,9 @@ import edu.fudan.ss.persistence.hibernate.common.IPersistenceManager;
 @Entity
 public class Term extends BaseModelObject {
 
-	//学年
+	// 学年
 	private Integer year;
-	//选课状态
+	// 选课状态
 	private ChooseCourseStatus status = ChooseCourseStatus.NOT_STARTED;
 	// concrete term. For example FIRST_TERM or SECOND_TERM
 	// @Enumerated(EnumType.STRING)
@@ -28,17 +29,33 @@ public class Term extends BaseModelObject {
 	// course list in the term
 	@OneToMany(mappedBy = "term", cascade = { CascadeType.ALL })
 	private Collection<TermCourse> courses = new ArrayList<TermCourse>();
-	
-	public static Term create(Integer year,ChooseCourseStatus status,
-			ConcreteTerm concreteTerm,IPersistenceManager pm){
-		Term term  = new Term();
+
+	public static Term create(Integer year, ChooseCourseStatus status,
+			ConcreteTerm concreteTerm, IPersistenceManager pm) {
+		Term term = new Term();
 		term.setYear(year);
 		term.setStatus(status);
 		term.setConcreteTerm(concreteTerm);
 		pm.save(term);
 		return term;
 	}
-	
+
+	/**
+	 * Check whether the term course has conflict with other courses in the term
+	 * 
+	 * @param termCourse
+	 * @return
+	 */
+	public boolean isConflictCourse(TermCourse termCourse) {
+		Iterator<TermCourse> coursesIter = courses.iterator();
+		while (coursesIter.hasNext()) {
+			if (coursesIter.next().isCourseConflict(termCourse)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public ChooseCourseStatus getStatus() {
 		return status;
 	}
@@ -46,9 +63,9 @@ public class Term extends BaseModelObject {
 	public void setStatus(ChooseCourseStatus status) {
 		this.status = status;
 	}
-	
-	public boolean canChooseCourse(){
-		return status==ChooseCourseStatus.STARTED;
+
+	public boolean canChooseCourse() {
+		return status == ChooseCourseStatus.STARTED;
 	}
 
 	public Collection<TermCourse> getCourses() {
@@ -58,30 +75,21 @@ public class Term extends BaseModelObject {
 	public void setCourses(Collection<TermCourse> courses) {
 		this.courses = courses;
 	}
-	
-	public Term findTerm(Integer year,ConcreteTerm concreteTerm,IPersistenceManager pm){
-		String hql = "from Term t where t.year = :year " 
-				+ "and t.concreteTerm = :concreteTerm ";
-		Query query = pm.createQuery(hql)
-				.setParameter("year", year)
-				.setParameter("concreteTerm", concreteTerm);
-		List<Term> result = query.list();
-		if(result==null||result.size()==0) return null;
-		return result.get(0);
-	}
-	
+
 	public Integer getYear() {
 		return year;
 	}
+
 	public void setYear(Integer year) {
 		this.year = year;
 	}
-	
+
 	public ConcreteTerm getConcreteTerm() {
 		return concreteTerm;
 	}
+
 	public void setConcreteTerm(ConcreteTerm concreteTerm) {
 		this.concreteTerm = concreteTerm;
 	}
-	
+
 }

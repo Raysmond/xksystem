@@ -45,6 +45,7 @@ public class TermCourse extends Course {
 		result.setName(name);
 		result.setAddress(address);
 		result.setStudentsLimit(studentsLimit);
+		term.getCourses().add(result);
 		pm.save(result);
 		return result;
 	}
