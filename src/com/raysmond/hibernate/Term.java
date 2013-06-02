@@ -49,7 +49,9 @@ public class Term extends BaseModelObject {
 	public boolean isConflictCourse(TermCourse termCourse) {
 		Iterator<TermCourse> coursesIter = courses.iterator();
 		while (coursesIter.hasNext()) {
-			if (coursesIter.next().isCourseConflict(termCourse)) {
+			TermCourse course = coursesIter.next();
+			if(course.getId().compareTo(termCourse.getId())==0) continue;
+			if (course.isCourseConflict(termCourse)) {
 				return true;
 			}
 		}

@@ -36,6 +36,16 @@ public class CourseSchedule extends BaseModelObject {
 		return schedule;
 	}
 	
+	public CourseSchedule(){
+		
+	}
+	
+	public CourseSchedule(WeekDay day,Integer hourBegin,Integer hourEnd){
+		this.weekday = day;
+		this.classhour = new ClassHour(hourBegin,hourEnd);
+	}
+	
+	
 	/**
 	 * To check whether two course schedules have overlaps
 	 * @param schedule

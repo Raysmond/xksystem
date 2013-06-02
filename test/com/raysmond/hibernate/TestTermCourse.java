@@ -85,5 +85,44 @@ public class TestTermCourse extends HibernateBaseTest {
 		assertFalse(course2.isCourseConflict(course0));
 		assertFalse(course0.isCourseConflict(course2));
 	}
+	
+	@Test
+	@Rollback(false)
+	public void testAddNewScheduleToCourse() {
+		Term term = Term.create(2013, ChooseCourseStatus.NOT_STARTED,
+				ConcreteTerm.FIRST_TERM, getPersistenceManager());
+		TermCourse course0 = TermCourse.create(term, "OOT_0", "Z2207", 50,
+				getPersistenceManager());
+		TermCourse course1 = TermCourse.create(term, "OOT_1", "Z2207", 50,
+				getPersistenceManager());
+
+		CourseSchedule schedule0 = new CourseSchedule(WeekDay.Friday, 3, 4);
+
+		CourseSchedule schedule1 = new CourseSchedule(WeekDay.Friday, 5, 6);
+
+		CourseSchedule schedule2 = new CourseSchedule(WeekDay.Friday, 5, 6);
+
+		CourseSchedule schedule3 = new CourseSchedule(WeekDay.Friday, 3, 5);
+
+		this.assertObjectPersisted(course0);
+		this.assertObjectPersisted(course1);
+		assertTrue(course0.addCourseSchedule(schedule0, getPersistenceManager()));
+		assertTrue(course1.addCourseSchedule(schedule1, getPersistenceManager()));
+		assertFalse(course0.addCourseSchedule(schedule2,getPersistenceManager()));
+		assertFalse(course0.addCourseSchedule(schedule3,getPersistenceManager()));
+		
+		String hql = "from CourseSchedule s where s.course=:course";
+		Query query = getPersistenceManager().createQuery(hql).setParameter("course", course0);
+		List<CourseSchedule> _schedules0 = query.list();
+		assertEquals(1,_schedules0.size());
+		CourseSchedule _schedule0 = _schedules0.get(0);
+		assertEquals(_schedule0.getId(),schedule0.getId());
+		
+		Query query1 = getPersistenceManager().createQuery(hql).setParameter("course", course1);
+		List<CourseSchedule> _schedules1 = query1.list();
+		assertEquals(1,_schedules1.size());
+		CourseSchedule _schedule1 = _schedules1.get(0);
+		assertEquals(_schedule1.getId(),schedule1.getId());
+	}
 
 }
