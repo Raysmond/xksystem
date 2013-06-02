@@ -23,10 +23,10 @@ public class Term extends BaseModelObject {
 	private Integer year;
 	// 选课状态
 	private ChooseCourseStatus status = ChooseCourseStatus.NOT_STARTED;
-	// concrete term. For example FIRST_TERM or SECOND_TERM
+	// 期，如第一学期，第二学期
 	// @Enumerated(EnumType.STRING)
 	private ConcreteTerm concreteTerm;
-	// course list in the term
+	// 学期课程
 	@OneToMany(mappedBy = "term", cascade = { CascadeType.ALL })
 	private Collection<TermCourse> courses = new ArrayList<TermCourse>();
 
@@ -41,7 +41,8 @@ public class Term extends BaseModelObject {
 	}
 
 	/**
-	 * Check whether the term course has conflict with other courses in the term
+	 * Check whether the schedule and address of a course has conflict with
+	 * other courses in the term
 	 * 
 	 * @param termCourse
 	 * @return
@@ -50,7 +51,8 @@ public class Term extends BaseModelObject {
 		Iterator<TermCourse> coursesIter = courses.iterator();
 		while (coursesIter.hasNext()) {
 			TermCourse course = coursesIter.next();
-			if(course.getId().compareTo(termCourse.getId())==0) continue;
+			if (course.getId().compareTo(termCourse.getId()) == 0)
+				continue;
 			if (course.isCourseConflict(termCourse)) {
 				return true;
 			}

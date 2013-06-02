@@ -3,7 +3,7 @@ package com.raysmond.hibernate;
 import javax.persistence.Embeddable;
 
 /**
- * Course hours
+ * 课时类
  * @author Raysmond
  *
  */
@@ -22,7 +22,7 @@ public class ClassHour {
 	}
 	
 	/**
-	 * To check whether two class hours have overlaps 
+	 * 检测两个课时是否有重叠冲突 
 	 * @param hours
 	 * @return
 	 */

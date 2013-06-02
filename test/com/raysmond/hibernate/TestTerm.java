@@ -37,6 +37,7 @@ public class TestTerm extends HibernateBaseTest {
 		Teacher teacher = Teacher.create("OOTeacher", "1111",
 				getPersistenceManager());
 		
+		// create schedules
 		Collection<CourseSchedule> schedules0 = new ArrayList<CourseSchedule>();
 		Collection<CourseSchedule> schedules1 = new ArrayList<CourseSchedule>();
 		CourseSchedule schedule0 = new CourseSchedule();
@@ -56,6 +57,7 @@ public class TestTerm extends HibernateBaseTest {
 		schedules0.add(schedule1);
 		schedules1.add(schedule2);
 
+		// register courses
 		TermCourse course0 = courseController.registerTermCourse("OOT_2012",
 				"Z2207", 50,schedules0, teacher, term);
 		TermCourse course1 = courseController.registerTermCourse("OOT_2012",
@@ -63,8 +65,8 @@ public class TestTerm extends HibernateBaseTest {
 		TermCourse course2 = courseController.registerTermCourse("OOT_2012",
 				"Z2207", 50,schedules1, teacher, term);	
 		
-		this.assertObjectPersisted(course0);
-		this.assertObjectPersisted(course1);
+		assertObjectPersisted(course0);
+		assertObjectPersisted(course1);
 		assertNull(course2.getId());
 	}
 	

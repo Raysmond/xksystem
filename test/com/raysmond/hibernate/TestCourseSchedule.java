@@ -39,8 +39,8 @@ public class TestCourseSchedule extends HibernateBaseTest {
 		CourseSchedule schedule5 = CourseSchedule.create(WeekDay.Thursday, 4,
 				5, getPersistenceManager());
 
-		// three schedules which have overlaps in hour but no overlaps in week day
-		// and all should assert false
+		// three schedules which have overlaps in hour but no overlaps in week
+		// day and all should assert false
 		assertFalse(schedule4.isOverlapped(schedule0));
 		assertFalse(schedule4.isOverlapped(schedule1));
 		assertFalse(schedule5.isOverlapped(schedule0));

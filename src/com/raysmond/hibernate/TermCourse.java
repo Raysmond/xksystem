@@ -115,31 +115,34 @@ public class TermCourse extends Course {
 
 	/**
 	 * Add new schedule to the course
+	 * 
 	 * @param schedule
 	 * @param pm
 	 * @return
 	 */
-	public boolean addCourseSchedule(CourseSchedule schedule,IPersistenceManager pm){
+	public boolean addCourseSchedule(CourseSchedule schedule,
+			IPersistenceManager pm) {
 		Iterator<CourseSchedule> iter = getSchedule().iterator();
-		while(iter.hasNext()){
-			// the new schedule cannot have overlaps within the schedules of the course itself
-			if(iter.next().isOverlapped(schedule))
+		while (iter.hasNext()) {
+			// the new schedule cannot have overlaps within the schedules of the
+			// course itself
+			if (iter.next().isOverlapped(schedule))
 				return false;
 		}
 		this.getSchedule().add(schedule);
-		// after adding new schedule, the course cannot have overlaps with others courses
-		if(!getTerm().isConflictCourse(this)){
+		// after adding new schedule, the course cannot have overlaps with
+		// others courses
+		if (!getTerm().isConflictCourse(this)) {
 			schedule.setCourse(this);
 			pm.save(schedule);
 			pm.save(this);
 			return true;
-		}
-		else{
+		} else {
 			this.getSchedule().remove(schedule);
 			return false;
 		}
 	}
-	
+
 	public Collection<Student> getFollowStudents() {
 		return followStudents;
 	}
