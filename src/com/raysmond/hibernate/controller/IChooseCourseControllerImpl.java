@@ -27,7 +27,8 @@ public class IChooseCourseControllerImpl implements IChooseCourseController {
 			// and the student has not chosen the course
 			// then precede choosing course
 			if (course.getStudents().size() < course.getStudentsLimit()
-					&& !course.isStudentInCourse(student)) {
+					&& !course.getStudents().contains(student)
+					&& !student.getChoosedCourses().contains(course)) {
 				course.getStudents().add(student);
 				student.getChoosedCourses().add(course);
 				persistenceManager.save(course);
@@ -42,8 +43,8 @@ public class IChooseCourseControllerImpl implements IChooseCourseController {
 	public boolean dropCourse(Student student, TermCourse course) {
 		if (course.getTerm().canChooseCourse()) {
 			// the student already chosen the course
-			if (course.isStudentInCourse(student)) {
-				if (course.removeCourseStudent(student)
+			if (course.getStudents().contains(student)) {
+				if (course.getStudents().remove(student)
 						&& student.getChoosedCourses().remove(course)) {
 					persistenceManager.save(course);
 					persistenceManager.save(student);
@@ -58,7 +59,8 @@ public class IChooseCourseControllerImpl implements IChooseCourseController {
 	public boolean followCourse(Student student, TermCourse course) {
 		if (course.getTerm().canChooseCourse()) {
 			// If the student hasn't followed the course
-			if(!course.getFollowStudents().contains(student)){
+			if (!course.getFollowStudents().contains(student)
+					&& !student.getFollowedCourses().contains(course)) {
 				course.getFollowStudents().add(student);
 				student.getFollowedCourses().add(course);
 				persistenceManager.save(course);
@@ -73,7 +75,7 @@ public class IChooseCourseControllerImpl implements IChooseCourseController {
 	public boolean defollowCourse(Student student, TermCourse course) {
 		if (course.getTerm().canChooseCourse()) {
 			// If the student has followed the course
-			if(course.getFollowStudents().contains(student)){
+			if (course.getFollowStudents().contains(student)) {
 				course.getFollowStudents().remove(student);
 				student.getFollowedCourses().remove(course);
 				persistenceManager.save(course);
@@ -89,9 +91,9 @@ public class IChooseCourseControllerImpl implements IChooseCourseController {
 		if (term.canChooseCourse()) {
 			List<TermCourse> courses = new ArrayList<TermCourse>();
 			Iterator<TermCourse> allCourses = term.getCourses().iterator();
-			while(allCourses.hasNext()){
+			while (allCourses.hasNext()) {
 				TermCourse course = allCourses.next();
-				if(course.getStudents().size()<course.getStudentsLimit()){
+				if (course.getStudents().size() < course.getStudentsLimit()) {
 					courses.add(course);
 				}
 			}

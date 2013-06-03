@@ -51,41 +51,6 @@ public class TermCourse extends Course {
 	}
 
 	/**
-	 * Whether a student has already chosen the course
-	 * 
-	 * @param student
-	 * @return
-	 */
-	public boolean isStudentInCourse(Student student) {
-		Iterator<Student> iter = courseStudents.iterator();
-		boolean hasChosen = false;
-		while (iter.hasNext()) {
-			if (iter.next().getId() == student.getId()) {
-				hasChosen = true;
-				break;
-			}
-		}
-		return hasChosen;
-	}
-
-	/**
-	 * Remove a student who have chosen the course from student list
-	 * 
-	 * @param student
-	 * @return
-	 */
-	public boolean removeCourseStudent(Student student) {
-		Iterator<Student> iter = courseStudents.iterator();
-		while (iter.hasNext()) {
-			Student curStudent = iter.next();
-			if (curStudent.getId() == student.getId()) {
-				return courseStudents.remove(curStudent);
-			}
-		}
-		return false;
-	}
-
-	/**
 	 * To check whether two courses have conflict in address and schedule at the
 	 * same time
 	 * 
@@ -143,6 +108,9 @@ public class TermCourse extends Course {
 		}
 	}
 
+	//-------------------
+	//getters and setters
+	
 	public Collection<Student> getFollowStudents() {
 		return followStudents;
 	}

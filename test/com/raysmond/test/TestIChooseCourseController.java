@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.hibernate.Query;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 
 import com.raysmond.hibernate.ChooseCourseStatus;
 import com.raysmond.hibernate.ConcreteTerm;
@@ -90,16 +90,28 @@ public class TestIChooseCourseController extends HibernateBaseTest {
 			students.add(student);
 			assertTrue(controller.chooseCourse(student, course));
 		}
+		
+		// before dropping course, there are 5 students in the course 
+		TermCourse savedCourse = getPersistenceManager().get(TermCourse.class, course.getId());
+		assertEquals(5, savedCourse.getStudents().size());
 
 		// let the first student drop the course
 		controller.dropCourse(students.get(0), course);
 
-		String hql = "from TermCourse course where course.id=:id";
-		Query query = getPersistenceManager().createQuery(hql).setParameter(
-				"id", course.getId());
-		List<TermCourse> result = query.list();
-		assertEquals(1, result.size());
-		assertEquals(4, result.get(0).getStudents().size());
+		// after one student dropping course, there are 4 students in the course
+		TermCourse savedCourseAfterDropping = getPersistenceManager().get(TermCourse.class, course.getId());
+		assertEquals(4, savedCourseAfterDropping.getStudents().size());
+		assertFalse(savedCourseAfterDropping.getStudents().contains(students.get(0)));
+		
+		// check all boundaries
+		// let other students drop the course
+		for(int i=1;i<5;++i){
+			controller.dropCourse(students.get(i), course);
+			// after one student dropping course, there are 4 students in the course
+			TermCourse savedCourseAfterDroppingTmp = getPersistenceManager().get(TermCourse.class, course.getId());
+			assertEquals(4-i, savedCourseAfterDroppingTmp.getStudents().size());
+			assertFalse(savedCourseAfterDroppingTmp.getStudents().contains(students.get(i)));
+		}
 	}
 
 	@Test
@@ -135,6 +147,7 @@ public class TestIChooseCourseController extends HibernateBaseTest {
 	}
 
 	@Test
+	// @Rollback(false)
 	public void testStudentFollowTermCourse() {
 		// create a new term
 		Term term = Term.create(2013, ChooseCourseStatus.STARTED,

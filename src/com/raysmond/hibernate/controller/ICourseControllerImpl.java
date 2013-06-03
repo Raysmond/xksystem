@@ -22,10 +22,9 @@ public class ICourseControllerImpl implements ICourseController {
 	@Autowired
 	private IPersistenceManager persistenceManager;
 
-
 	@Override
 	public void startChoosingCourse(Term term) {
-		if(term.getStatus()!=ChooseCourseStatus.STARTED){
+		if (term.getStatus() != ChooseCourseStatus.STARTED) {
 			term.setStatus(ChooseCourseStatus.STARTED);
 			persistenceManager.save(term);
 		}
@@ -33,15 +32,16 @@ public class ICourseControllerImpl implements ICourseController {
 
 	@Override
 	public void endChoosingCourse(Term term) {
-		if(term.getStatus()!=ChooseCourseStatus.END){
+		if (term.getStatus() != ChooseCourseStatus.END) {
 			term.setStatus(ChooseCourseStatus.END);
 			persistenceManager.save(term);
 		}
 	}
 
 	@Override
-	public Term prepareTermCourse(Integer year,ConcreteTerm cterm){
-		return Term.create(year, ChooseCourseStatus.NOT_STARTED, cterm, persistenceManager);
+	public Term prepareTermCourse(Integer year, ConcreteTerm cterm) {
+		return Term.create(year, ChooseCourseStatus.NOT_STARTED, cterm,
+				persistenceManager);
 	}
 
 	@Override
@@ -73,23 +73,23 @@ public class ICourseControllerImpl implements ICourseController {
 		course.setTeacher(teacher);
 		course.setTerm(term);
 		course.setSchedule(schedules);
-		
-		//check whether the course is a conflict course in the term
-		if(!term.isConflictCourse(course)){
+
+		// check whether the course is a conflict course in the term
+		if (!term.isConflictCourse(course)) {
 			// add the course to the term
 			term.getCourses().add(course);
 			// build relations
 			term.getCourses().add(course);
 			teacher.getCourses().add(course);
-			
+
 			Iterator<CourseSchedule> iter = schedules.iterator();
-			while(iter.hasNext()){
+			while (iter.hasNext()) {
 				iter.next().setCourse(course);
 			}
 
 			persistenceManager.save(course);
-		}		
+		}
 
-		return course;		
+		return course;
 	}
 }
