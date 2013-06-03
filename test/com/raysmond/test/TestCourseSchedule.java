@@ -1,6 +1,9 @@
-package com.raysmond.hibernate;
+package com.raysmond.test;
 
 import org.junit.Test;
+
+import com.raysmond.hibernate.CourseSchedule;
+import com.raysmond.hibernate.WeekDay;
 
 import edu.fudan.ss.persistence.hibernate.common.HibernateBaseTest;
 

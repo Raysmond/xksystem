@@ -1,4 +1,4 @@
-package com.raysmond.hibernate;
+package com.raysmond.test;
 
 import static org.junit.Assert.*;
 
@@ -11,6 +11,13 @@ import org.hibernate.Query;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
+
+import com.raysmond.hibernate.ChooseCourseStatus;
+import com.raysmond.hibernate.ConcreteTerm;
+import com.raysmond.hibernate.CourseSchedule;
+import com.raysmond.hibernate.Term;
+import com.raysmond.hibernate.TermCourse;
+import com.raysmond.hibernate.WeekDay;
 
 import edu.fudan.ss.persistence.hibernate.common.HibernateBaseTest;
 
@@ -124,5 +131,6 @@ public class TestTermCourse extends HibernateBaseTest {
 		CourseSchedule _schedule1 = _schedules1.get(0);
 		assertEquals(_schedule1.getId(),schedule1.getId());
 	}
+	
 
 }

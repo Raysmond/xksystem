@@ -1,8 +1,10 @@
-package com.raysmond.hibernate;
+package com.raysmond.test;
 
 
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
+
+import com.raysmond.hibernate.Teacher;
 
 import edu.fudan.ss.persistence.hibernate.common.HibernateBaseTest;
 

@@ -56,13 +56,31 @@ public class IChooseCourseControllerImpl implements IChooseCourseController {
 
 	@Override
 	public boolean followCourse(Student student, TermCourse course) {
-		// TODO Auto-generated method stub
+		if (course.getTerm().canChooseCourse()) {
+			// If the student hasn't followed the course
+			if(!course.getFollowStudents().contains(student)){
+				course.getFollowStudents().add(student);
+				student.getFollowedCourses().add(course);
+				persistenceManager.save(course);
+				persistenceManager.save(student);
+				return true;
+			}
+		}
 		return false;
 	}
 
 	@Override
 	public boolean defollowCourse(Student student, TermCourse course) {
-		// TODO Auto-generated method stub
+		if (course.getTerm().canChooseCourse()) {
+			// If the student has followed the course
+			if(course.getFollowStudents().contains(student)){
+				course.getFollowStudents().remove(student);
+				student.getFollowedCourses().remove(course);
+				persistenceManager.save(course);
+				persistenceManager.save(student);
+				return true;
+			}
+		}
 		return false;
 	}
 

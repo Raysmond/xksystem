@@ -1,4 +1,4 @@
-package com.raysmond.hibernate;
+package com.raysmond.test;
 
 
 import java.util.ArrayList;
@@ -8,6 +8,14 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 
+import com.raysmond.hibernate.ChooseCourseStatus;
+import com.raysmond.hibernate.ClassHour;
+import com.raysmond.hibernate.ConcreteTerm;
+import com.raysmond.hibernate.CourseSchedule;
+import com.raysmond.hibernate.Teacher;
+import com.raysmond.hibernate.Term;
+import com.raysmond.hibernate.TermCourse;
+import com.raysmond.hibernate.WeekDay;
 import com.raysmond.hibernate.controller.ICourseController;
 
 import edu.fudan.ss.persistence.hibernate.common.HibernateBaseTest;
