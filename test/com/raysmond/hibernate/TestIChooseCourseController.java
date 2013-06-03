@@ -14,7 +14,6 @@ import org.springframework.test.annotation.Rollback;
 
 import com.raysmond.hibernate.controller.IChooseCourseController;
 import com.raysmond.hibernate.controller.ICourseController;
-import com.raysmond.util.OutputObject;
 
 import edu.fudan.ss.persistence.hibernate.common.HibernateBaseTest;
 

@@ -9,7 +9,10 @@ import edu.fudan.ss.persistence.hibernate.common.IPersistenceManager;
 
 @Entity
 public class Teacher extends Account {
+	// ΩÃ ¶π§∫≈
 	private String jobNumber;
+	
+	// term courses thought by the teacher
 	@OneToMany(mappedBy = "teacher")
 	private Collection<TermCourse> courses = new ArrayList<TermCourse>();
 	

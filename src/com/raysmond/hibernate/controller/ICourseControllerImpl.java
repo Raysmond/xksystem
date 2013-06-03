@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.raysmond.hibernate.ChooseCourseStatus;
+import com.raysmond.hibernate.ConcreteTerm;
 import com.raysmond.hibernate.CourseSchedule;
 import com.raysmond.hibernate.Teacher;
 import com.raysmond.hibernate.Term;
@@ -39,8 +40,8 @@ public class ICourseControllerImpl implements ICourseController {
 	}
 
 	@Override
-	public void prepareTermCourse(Term term) {
-
+	public Term prepareTermCourse(Integer year,ConcreteTerm cterm){
+		return Term.create(year, ChooseCourseStatus.NOT_STARTED, cterm, persistenceManager);
 	}
 
 	@Override

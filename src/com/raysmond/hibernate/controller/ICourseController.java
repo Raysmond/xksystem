@@ -3,33 +3,59 @@ package com.raysmond.hibernate.controller;
 import java.util.Collection;
 import java.util.List;
 
+import com.raysmond.hibernate.ConcreteTerm;
 import com.raysmond.hibernate.CourseSchedule;
 import com.raysmond.hibernate.Teacher;
 import com.raysmond.hibernate.Term;
 import com.raysmond.hibernate.TermCourse;
 
 /**
- * 课程管理控制器接口
+ * Term Courses controller
  * 
  * @author Raysmond
  * 
  */
 public interface ICourseController {
 
-	// 开设课程，注册学期课程的基本信息
+	/**
+	 * Set up a concrete term course
+	 * @param name the name of the course
+	 * @param address the place where the course takes place
+	 * @param studentsLimit 
+	 * @param schedules time schedules for the course. It can be set up later.
+	 * @param teacher 
+	 * @param term 
+	 * @return the course created
+	 */
 	public TermCourse registerTermCourse(String name, String address,
 			Integer studentsLimit,Collection<CourseSchedule> schedules, Teacher teacher, Term term);
 
-	// 学期选课开始
+	/**
+	 * Start choosing course for a term
+	 * @param term
+	 */
 	public void startChoosingCourse(Term term);
 
-	// 学期选课结束
+	/**
+	 * End choosing course for a term
+	 * @param term
+	 */
 	public void endChoosingCourse(Term term);
 
-	// 准备学期选课
-	public void prepareTermCourse(Term term);
+	/**
+	 * Prepare a term. The default choosing course status is not started yet.
+	 * @param year
+	 * @param cterm
+	 * @return the new term created
+	 */
+	public Term prepareTermCourse(Integer year,ConcreteTerm cterm);
 
-	// 调整选课人数
+	/**
+	 * Ajust the students limit of a term course
+	 * @param course
+	 * @param studentsLimit
+	 * @return
+	 */
 	public boolean ajustCourseStudentLimit(TermCourse course,
 			Integer studentsLimit);
 }

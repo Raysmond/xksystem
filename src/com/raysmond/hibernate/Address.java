@@ -4,7 +4,9 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class Address {
+	
 	private String postcode;
+	
 	private String addrinfo;
 
 	public String getPostcode() {

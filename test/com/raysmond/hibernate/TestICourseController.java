@@ -82,7 +82,9 @@ public class TestICourseController extends HibernateBaseTest {
 
 	@Test
 	public void testPrepareChooseCourse() {
-		fail("not implemented yet");
+		Term term = courseController.prepareTermCourse(2013, ConcreteTerm.FIRST_TERM);
+		assertObjectPersisted(term);
+		assertEquals(ConcreteTerm.FIRST_TERM,term.getConcreteTerm());
 	}
 
 	@Test
