@@ -16,16 +16,18 @@ public class CourseSchedule extends BaseModelObject {
 	private ClassHour classhour;
 	@ManyToOne
 	private TermCourse course;
-	
-	public static CourseSchedule create(WeekDay day,ClassHour hour,IPersistenceManager pm){
+
+	public static CourseSchedule create(WeekDay day, ClassHour hour,
+			IPersistenceManager pm) {
 		CourseSchedule schedule = new CourseSchedule();
 		schedule.setWeekday(day);
 		schedule.setClasshour(hour);
 		pm.save(schedule);
 		return schedule;
 	}
-	
-	public static CourseSchedule create(WeekDay day,Integer hourBegin,Integer hourEnd,IPersistenceManager pm){
+
+	public static CourseSchedule create(WeekDay day, Integer hourBegin,
+			Integer hourEnd, IPersistenceManager pm) {
 		CourseSchedule schedule = new CourseSchedule();
 		schedule.setWeekday(day);
 		ClassHour hour = new ClassHour();
@@ -35,19 +37,19 @@ public class CourseSchedule extends BaseModelObject {
 		pm.save(schedule);
 		return schedule;
 	}
-	
-	public CourseSchedule(){
-		
+
+	public CourseSchedule() {
+
 	}
-	
-	public CourseSchedule(WeekDay day,Integer hourBegin,Integer hourEnd){
+
+	public CourseSchedule(WeekDay day, Integer hourBegin, Integer hourEnd) {
 		this.weekday = day;
-		this.classhour = new ClassHour(hourBegin,hourEnd);
+		this.classhour = new ClassHour(hourBegin, hourEnd);
 	}
-	
-	
+
 	/**
 	 * To check whether two course schedules have overlaps
+	 * 
 	 * @param schedule
 	 * @return
 	 */

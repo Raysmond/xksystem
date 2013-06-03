@@ -51,7 +51,7 @@ public class Term extends BaseModelObject {
 		Iterator<TermCourse> coursesIter = courses.iterator();
 		while (coursesIter.hasNext()) {
 			TermCourse course = coursesIter.next();
-			if (course.getId().compareTo(termCourse.getId()) == 0)
+			if (course.equals(termCourse))
 				continue;
 			if (course.isCourseConflict(termCourse)) {
 				return true;

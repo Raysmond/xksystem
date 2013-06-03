@@ -80,11 +80,16 @@ public class ICourseControllerImpl implements ICourseController {
 			term.getCourses().add(course);
 			// build relations
 			term.getCourses().add(course);
+			persistenceManager.save(term);
+			
 			teacher.getCourses().add(course);
+			persistenceManager.save(teacher);
 
 			Iterator<CourseSchedule> iter = schedules.iterator();
 			while (iter.hasNext()) {
-				iter.next().setCourse(course);
+				CourseSchedule _schedule = iter.next();
+				_schedule.setCourse(course);
+				persistenceManager.save(_schedule);
 			}
 
 			persistenceManager.save(course);

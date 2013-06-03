@@ -24,6 +24,7 @@ public class Teacher extends Account {
 		return teacher;
 	}
 	
+	// getters and setters
 	public Collection<TermCourse> getCourses() {
 		return courses;
 	}
