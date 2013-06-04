@@ -33,20 +33,14 @@ public class TestTermCourse extends HibernateBaseTest {
 				getPersistenceManager());
 		this.assertObjectPersisted(course);
 
-		String hql = "from Term t where t.id=:id";
-		Query query = getPersistenceManager().createQuery(hql).setParameter(
-				"id", term.getId());
-		List<Term> terms = query.list();
-		assertEquals(1, terms.size());
-		Iterator<TermCourse> iter = terms.get(0).getCourses().iterator();
-		boolean result = false;
-		while (iter.hasNext()) {
-			if (iter.next().getId().compareTo(course.getId()) == 0) {
-				result = true;
-				break;
-			}
-		}
-		assertTrue(result);
+		TermCourse savedTermCourse = getPersistenceManager().get(
+				TermCourse.class, course.getId());
+		assertNotNull(savedTermCourse);
+		assertEquals(savedTermCourse, course);
+		assertEquals(savedTermCourse.getTerm(), course.getTerm());
+
+		Term savedTerm = getPersistenceManager().get(Term.class, term.getId());
+		assertTrue(savedTerm.getCourses().contains(course));
 	}
 
 	@Test
@@ -92,7 +86,7 @@ public class TestTermCourse extends HibernateBaseTest {
 		assertFalse(course2.isCourseConflict(course0));
 		assertFalse(course0.isCourseConflict(course2));
 	}
-	
+
 	@Test
 	@Rollback(false)
 	public void testAddNewScheduleToCourse() {
@@ -113,24 +107,29 @@ public class TestTermCourse extends HibernateBaseTest {
 
 		this.assertObjectPersisted(course0);
 		this.assertObjectPersisted(course1);
-		assertTrue(course0.addCourseSchedule(schedule0, getPersistenceManager()));
-		assertTrue(course1.addCourseSchedule(schedule1, getPersistenceManager()));
-		assertFalse(course0.addCourseSchedule(schedule2,getPersistenceManager()));
-		assertFalse(course0.addCourseSchedule(schedule3,getPersistenceManager()));
-		
+		assertTrue(course0
+				.addCourseSchedule(schedule0, getPersistenceManager()));
+		assertTrue(course1
+				.addCourseSchedule(schedule1, getPersistenceManager()));
+		assertFalse(course0.addCourseSchedule(schedule2,
+				getPersistenceManager()));
+		assertFalse(course0.addCourseSchedule(schedule3,
+				getPersistenceManager()));
+
 		String hql = "from CourseSchedule s where s.course=:course";
-		Query query = getPersistenceManager().createQuery(hql).setParameter("course", course0);
+		Query query = getPersistenceManager().createQuery(hql).setParameter(
+				"course", course0);
 		List<CourseSchedule> _schedules0 = query.list();
-		assertEquals(1,_schedules0.size());
+		assertEquals(1, _schedules0.size());
 		CourseSchedule _schedule0 = _schedules0.get(0);
-		assertEquals(_schedule0.getId(),schedule0.getId());
-		
-		Query query1 = getPersistenceManager().createQuery(hql).setParameter("course", course1);
+		assertEquals(_schedule0.getId(), schedule0.getId());
+
+		Query query1 = getPersistenceManager().createQuery(hql).setParameter(
+				"course", course1);
 		List<CourseSchedule> _schedules1 = query1.list();
-		assertEquals(1,_schedules1.size());
+		assertEquals(1, _schedules1.size());
 		CourseSchedule _schedule1 = _schedules1.get(0);
-		assertEquals(_schedule1.getId(),schedule1.getId());
+		assertEquals(_schedule1.getId(), schedule1.getId());
 	}
-	
 
 }

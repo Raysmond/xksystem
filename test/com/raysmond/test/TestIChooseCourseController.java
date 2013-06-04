@@ -20,8 +20,7 @@ import com.raysmond.hibernate.controller.IChooseCourseController;
 import edu.fudan.ss.persistence.hibernate.common.HibernateBaseTest;
 
 /**
- * Test IChooseCourseController obviously. 
- * Functionalities to be tested:
+ * Test IChooseCourseController obviously. Functionalities to be tested:
  * choose/drop course, follow/defollow course, get available courses
  * 
  * @author raysmond
@@ -90,27 +89,34 @@ public class TestIChooseCourseController extends HibernateBaseTest {
 			students.add(student);
 			assertTrue(controller.chooseCourse(student, course));
 		}
-		
-		// before dropping course, there are 5 students in the course 
-		TermCourse savedCourse = getPersistenceManager().get(TermCourse.class, course.getId());
+
+		// before dropping course, there are 5 students in the course
+		TermCourse savedCourse = getPersistenceManager().get(TermCourse.class,
+				course.getId());
 		assertEquals(5, savedCourse.getStudents().size());
 
 		// let the first student drop the course
 		controller.dropCourse(students.get(0), course);
 
 		// after one student dropping course, there are 4 students in the course
-		TermCourse savedCourseAfterDropping = getPersistenceManager().get(TermCourse.class, course.getId());
+		TermCourse savedCourseAfterDropping = getPersistenceManager().get(
+				TermCourse.class, course.getId());
 		assertEquals(4, savedCourseAfterDropping.getStudents().size());
-		assertFalse(savedCourseAfterDropping.getStudents().contains(students.get(0)));
-		
+		assertFalse(savedCourseAfterDropping.getStudents().contains(
+				students.get(0)));
+
 		// check all boundaries
 		// let other students drop the course
-		for(int i=1;i<5;++i){
+		for (int i = 1; i < 5; ++i) {
 			controller.dropCourse(students.get(i), course);
-			// after one student dropping course, there are 4 students in the course
-			TermCourse savedCourseAfterDroppingTmp = getPersistenceManager().get(TermCourse.class, course.getId());
-			assertEquals(4-i, savedCourseAfterDroppingTmp.getStudents().size());
-			assertFalse(savedCourseAfterDroppingTmp.getStudents().contains(students.get(i)));
+			// after one student dropping course, there are 4 students in the
+			// course
+			TermCourse savedCourseAfterDroppingTmp = getPersistenceManager()
+					.get(TermCourse.class, course.getId());
+			assertEquals(4 - i, savedCourseAfterDroppingTmp.getStudents()
+					.size());
+			assertFalse(savedCourseAfterDroppingTmp.getStudents().contains(
+					students.get(i)));
 		}
 	}
 
