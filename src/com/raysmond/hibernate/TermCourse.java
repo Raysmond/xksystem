@@ -37,6 +37,9 @@ public class TermCourse extends Course {
 	// the students following the course
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "followedCourses")
 	private Collection<Student> followStudents = new ArrayList<Student>();
+	
+	@OneToMany(mappedBy = "course")
+	private Collection<DropCourseRecord> dropCourseRecord =  new ArrayList<DropCourseRecord>();
 
 	public static TermCourse create(Term term, String name, String address,
 			Integer studentsLimit, IPersistenceManager pm) {
@@ -111,8 +114,26 @@ public class TermCourse extends Course {
 	//-------------------
 	//getters and setters
 	
+	
+	
 	public Collection<Student> getFollowStudents() {
 		return followStudents;
+	}
+
+	public Collection<Student> getCourseStudents() {
+		return courseStudents;
+	}
+
+	public void setCourseStudents(Collection<Student> courseStudents) {
+		this.courseStudents = courseStudents;
+	}
+
+	public Collection<DropCourseRecord> getDropCourseRecord() {
+		return dropCourseRecord;
+	}
+
+	public void setDropCourseRecord(Collection<DropCourseRecord> dropCourseRecord) {
+		this.dropCourseRecord = dropCourseRecord;
 	}
 
 	public void setFollowStudents(Collection<Student> followStudents) {

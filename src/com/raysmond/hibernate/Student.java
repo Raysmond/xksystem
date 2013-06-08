@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import edu.fudan.ss.persistence.hibernate.common.IPersistenceManager;
 
@@ -33,7 +34,9 @@ public class Student extends Account {
 	@JoinTable(name = "Student_Follow_Course") 
 	private Collection<TermCourse> followedCourses = new ArrayList<TermCourse>();
 
-	
+	@OneToMany(mappedBy = "student")
+	private Collection<DropCourseRecord> dropCourseRecord =  new ArrayList<DropCourseRecord>();
+
 	public static Student create(String name,String studentNumber,
 			IPersistenceManager pm){
 		Student student = new Student();
@@ -41,6 +44,14 @@ public class Student extends Account {
 		student.setStudentNumber(studentNumber);
 		pm.save(student);
 		return student;
+	}
+	
+	public Collection<DropCourseRecord> getDropCourseRecord() {
+		return dropCourseRecord;
+	}
+
+	public void setDropCourseRecord(Collection<DropCourseRecord> dropCourseRecord) {
+		this.dropCourseRecord = dropCourseRecord;
 	}
 	
 	public Collection<TermCourse> getFollowedCourses() {

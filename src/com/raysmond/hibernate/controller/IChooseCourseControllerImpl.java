@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.raysmond.hibernate.DropCourseRecord;
 import com.raysmond.hibernate.Student;
 import com.raysmond.hibernate.Term;
 import com.raysmond.hibernate.TermCourse;
@@ -48,6 +49,8 @@ public class IChooseCourseControllerImpl implements IChooseCourseController {
 						&& student.getChoosedCourses().remove(course)) {
 					persistenceManager.save(course);
 					persistenceManager.save(student);
+					// add drop course record
+					DropCourseRecord.create(student, course, persistenceManager);
 					return true;
 				}
 			}
