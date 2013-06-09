@@ -1,4 +1,5 @@
 /.clover
 *.class
 /bin
+*.docx
 *~

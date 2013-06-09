@@ -52,6 +52,6 @@ public class TestSimpleCreate extends HibernateBaseTest {
 	public void testCreateCourseSchedule() {
 		CourseSchedule schedule = CourseSchedule.create(WeekDay.Monday,
 				new ClassHour(3, 4), getPersistenceManager());
-		this.assertObjectPersisted(schedule);
+		assertObjectPersisted(schedule);
 	}
 }

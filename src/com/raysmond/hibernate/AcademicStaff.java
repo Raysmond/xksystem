@@ -11,5 +11,5 @@ import edu.fudan.ss.persistence.hibernate.common.BaseModelObject;
  */
 @Entity
 public class AcademicStaff extends Account {
-	
+	// there're no fields and methods for academic staff yet
 }

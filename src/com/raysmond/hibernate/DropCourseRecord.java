@@ -19,28 +19,35 @@ public class DropCourseRecord extends BaseModelObject {
 
 	@ManyToOne
 	private TermCourse course;
-	
+
 	@ManyToOne
 	private Student student;
-	
-	// to be implemented
-	public static DropCourseRecord create(Student student,TermCourse course,IPersistenceManager pm){
+
+	/**
+	 * Create a new record for dropping course
+	 * @param student
+	 * @param course
+	 * @param pm
+	 * @return
+	 */
+	public static DropCourseRecord create(Student student, TermCourse course,
+			IPersistenceManager pm) {
 		DropCourseRecord record = new DropCourseRecord();
 		record.setCourse(course);
 		record.setStudent(student);
 		record.setDropTime(new Date());
-		
+
 		// build associations
 		student.getDropCourseRecord().add(record);
 		course.getDropCourseRecord().add(record);
-		
+
 		pm.save(record);
 		pm.save(student);
 		pm.save(course);
-		
+
 		return record;
 	}
-	
+
 	public TermCourse getCourse() {
 		return course;
 	}
@@ -63,5 +70,5 @@ public class DropCourseRecord extends BaseModelObject {
 
 	public void setDropTime(Date dropTime) {
 		this.dropTime = dropTime;
-	} 
+	}
 }
