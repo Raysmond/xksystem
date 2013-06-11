@@ -7,7 +7,7 @@ This is the main project of me for Object-Oriented Technology (OOT) course taugh
 
 How to use?
 ============
-Clone the project and import it into you Eclipse (Spring Tools Suite is recommended). Since the project only contains hibernate mapping classes and some background controllers for business logic, we chose junit for testing.
+Clone the project and import it into you Eclipse (<a href="http://www.springsource.org/sts">Spring Tools Suite</a> is recommended). Since the project only contains hibernate mapping classes and some background controllers for business logic, we chose junit for testing.
 
 Contributors
 =============
