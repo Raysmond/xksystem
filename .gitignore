@@ -3,5 +3,5 @@
 /bin
 /tmp
 *.docx
-report.*
+report.pdf
 *~
