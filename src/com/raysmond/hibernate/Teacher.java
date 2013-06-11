@@ -16,6 +16,8 @@ public class Teacher extends Account {
 	@OneToMany(mappedBy = "teacher")
 	private Collection<TermCourse> courses = new ArrayList<TermCourse>();
 	
+	//other fields or methods
+	
 	public static Teacher create(String name,String jobNumber,IPersistenceManager pm){
 		Teacher teacher = new Teacher();
 		teacher.setName(name);

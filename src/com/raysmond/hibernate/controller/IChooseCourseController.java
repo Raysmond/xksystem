@@ -13,6 +13,7 @@ import com.raysmond.hibernate.TermCourse;
  * 
  */
 public interface IChooseCourseController {
+	
 	// Ñ¡¿Î
 	public boolean chooseCourse(Student student, TermCourse course);
 

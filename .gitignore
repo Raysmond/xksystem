@@ -1,5 +1,6 @@
 /.clover
 *.class
 /bin
+/tmp
 *.docx
 *~

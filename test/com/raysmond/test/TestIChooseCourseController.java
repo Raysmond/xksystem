@@ -32,7 +32,7 @@ public class TestIChooseCourseController extends HibernateBaseTest {
 	IChooseCourseController controller;
 
 	@Test
-	// @Rollback(false)
+	 @Rollback(false)
 	public void testChooseCourse() {
 		// create a new term
 		Term term = Term.create(2013, ChooseCourseStatus.STARTED,

@@ -29,7 +29,7 @@ public class TestICourseController extends HibernateBaseTest {
 	ICourseController courseController;
 
 	@Test
-	// @Rollback(false)
+    //@Rollback(false)
 	public void testRegisterTermCourse() {
 		// create a term
 		Term term = Term.create(2012, ChooseCourseStatus.NOT_STARTED,

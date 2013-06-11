@@ -24,7 +24,7 @@ public class Student extends Account {
     )
 	@JoinTable(name = "Student_Choose_Course") 
 	private Collection<TermCourse> choosedCourses = new ArrayList<TermCourse>();
-	
+
 	//Courses followed by the student
 	@ManyToMany(
             targetEntity=com.raysmond.hibernate.TermCourse.class,

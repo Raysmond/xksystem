@@ -26,16 +26,6 @@ public class TestTerm extends HibernateBaseTest {
 	ICourseController courseController;
 	
 	@Test
-   // @Rollback(false)
-	public void testCreateTerm() {
-		Term term = new Term();
-		term.setYear(2013);
-		term.setConcreteTerm(ConcreteTerm.FIRST_TERM);
-		this.getPersistenceManager().save(term);
-		this.assertObjectPersisted(term);
-	}
-	
-	@Test
 	public void testIsConflictTermCourse(){
 		// create a term
 		Term term = Term.create(2012, ChooseCourseStatus.NOT_STARTED,

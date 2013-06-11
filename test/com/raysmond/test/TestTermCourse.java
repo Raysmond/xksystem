@@ -24,26 +24,6 @@ import edu.fudan.ss.persistence.hibernate.common.HibernateBaseTest;
 public class TestTermCourse extends HibernateBaseTest {
 
 	@Test
-	// @Rollback(false)
-	public void testCreateTermCourse() {
-		// create a term
-		Term term = Term.create(2013, ChooseCourseStatus.NOT_STARTED,
-				ConcreteTerm.FIRST_TERM, getPersistenceManager());
-		TermCourse course = TermCourse.create(term, "OOT", "Z2207", 50,
-				getPersistenceManager());
-		this.assertObjectPersisted(course);
-
-		TermCourse savedTermCourse = getPersistenceManager().get(
-				TermCourse.class, course.getId());
-		assertNotNull(savedTermCourse);
-		assertEquals(savedTermCourse, course);
-		assertEquals(savedTermCourse.getTerm(), course.getTerm());
-
-		Term savedTerm = getPersistenceManager().get(Term.class, term.getId());
-		assertTrue(savedTerm.getCourses().contains(course));
-	}
-
-	@Test
 	public void testConflictCourse() {
 		Term term = Term.create(2013, ChooseCourseStatus.NOT_STARTED,
 				ConcreteTerm.FIRST_TERM, getPersistenceManager());
@@ -88,7 +68,7 @@ public class TestTermCourse extends HibernateBaseTest {
 	}
 
 	@Test
-	@Rollback(false)
+	// @Rollback(false)
 	public void testAddNewScheduleToCourse() {
 		Term term = Term.create(2013, ChooseCourseStatus.NOT_STARTED,
 				ConcreteTerm.FIRST_TERM, getPersistenceManager());

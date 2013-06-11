@@ -10,13 +10,6 @@ import edu.fudan.ss.persistence.hibernate.common.HibernateBaseTest;
 public class TestCourseSchedule extends HibernateBaseTest {
 
 	@Test
-	public void testCreateCourseSchedule() {
-		CourseSchedule schedule = CourseSchedule.create(WeekDay.Monday, 3, 4,
-				getPersistenceManager());
-		this.assertObjectPersisted(schedule);
-	}
-
-	@Test
 	public void testCourseScheduleOverlap() {
 		CourseSchedule schedule0 = CourseSchedule.create(WeekDay.Monday, 3, 6,
 				getPersistenceManager());
