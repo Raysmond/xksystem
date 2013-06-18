@@ -66,11 +66,11 @@ public class TestTerm extends HibernateBaseTest {
 		schedules1.add(schedule2);
 
 		// register courses
-		TermCourse course0 = courseController.registerTermCourse("OOT_2012",
+		TermCourse course0 = courseController.registerTermCourse("COMP130012","OOT_2012",
 				"Z2207", 50,schedules0, teacher, term);
-		TermCourse course1 = courseController.registerTermCourse("OOT_2012",
+		TermCourse course1 = courseController.registerTermCourse("COMP130013","OOT_2012",
 				"Z2208", 50,schedules2, teacher, term);	
-		TermCourse course2 = courseController.registerTermCourse("OOT_2012",
+		TermCourse course2 = courseController.registerTermCourse("COMP130014","OOT_2012",
 				"Z2207", 50,schedules1, teacher, term);	
 		
 		assertObjectPersisted(course0);

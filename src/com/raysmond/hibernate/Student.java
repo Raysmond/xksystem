@@ -45,30 +45,6 @@ public class Student extends Account {
 		pm.save(student);
 		return student;
 	}
-	
-	public Collection<DropCourseRecord> getDropCourseRecord() {
-		return dropCourseRecord;
-	}
-
-	public void setDropCourseRecord(Collection<DropCourseRecord> dropCourseRecord) {
-		this.dropCourseRecord = dropCourseRecord;
-	}
-	
-	public Collection<TermCourse> getFollowedCourses() {
-		return followedCourses;
-	}
-
-	public void setFollowedCourses(Collection<TermCourse> followedCourses) {
-		this.followedCourses = followedCourses;
-	}
-	
-	public Collection<TermCourse> getChoosedCourses() {
-		return choosedCourses;
-	}
-
-	public void setChoosedCourses(Collection<TermCourse> choosedCourses) {
-		this.choosedCourses = choosedCourses;
-	}
 
 	public String getStudentNumber() {
 		return studentNumber;
@@ -77,4 +53,29 @@ public class Student extends Account {
 	public void setStudentNumber(String studentNumber) {
 		this.studentNumber = studentNumber;
 	}
+
+	public Collection<TermCourse> getChoosedCourses() {
+		return choosedCourses;
+	}
+
+	public void setChoosedCourses(Collection<TermCourse> choosedCourses) {
+		this.choosedCourses = choosedCourses;
+	}
+
+	public Collection<TermCourse> getFollowedCourses() {
+		return followedCourses;
+	}
+
+	public void setFollowedCourses(Collection<TermCourse> followedCourses) {
+		this.followedCourses = followedCourses;
+	}
+
+	public Collection<DropCourseRecord> getDropCourseRecord() {
+		return dropCourseRecord;
+	}
+
+	public void setDropCourseRecord(Collection<DropCourseRecord> dropCourseRecord) {
+		this.dropCourseRecord = dropCourseRecord;
+	}
+	
 }

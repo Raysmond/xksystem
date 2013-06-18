@@ -23,7 +23,7 @@ public class TestSimpleCreate extends HibernateBaseTest {
 		// create a term
 		Term term = Term.create(2013, ChooseCourseStatus.NOT_STARTED,
 				ConcreteTerm.FIRST_TERM, getPersistenceManager());
-		TermCourse course = TermCourse.create(term, "OOT", "Z2207", 50,
+		TermCourse course = TermCourse.create(term,"CP1000", "OOT", "Z2207", 50,
 				getPersistenceManager());
 		this.assertObjectPersisted(course);
 
@@ -68,7 +68,7 @@ public class TestSimpleCreate extends HibernateBaseTest {
 				ConcreteTerm.SECOND_TERM, getPersistenceManager());
 
 		// create a new course
-		TermCourse course = TermCourse.create(term, "OOT", "Z2207", 50,
+		TermCourse course = TermCourse.create(term,"CP1008", "OOT", "Z2207", 50,
 				getPersistenceManager());
 
 		Student student = Student.create("student0", "1024065",

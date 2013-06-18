@@ -12,15 +12,16 @@ public class ClassHour {
 	private Integer begin;
 	private Integer end;
 	
+	
 	public ClassHour(){
 		
 	}
 	
-	public ClassHour(Integer begin,Integer end){
-		this.begin = begin;
-		this.end = end;
+	public ClassHour(int begin, int end) {
+		setBegin(begin);
+		setEnd(end);
 	}
-	
+
 	/**
 	 * 检测两个课时是否有重叠冲突 
 	 * @param hours
@@ -32,17 +33,22 @@ public class ClassHour {
 		}
 		return true;
 	}
-	
+
 	public Integer getBegin() {
 		return begin;
 	}
+
 	public void setBegin(Integer begin) {
 		this.begin = begin;
 	}
+
 	public Integer getEnd() {
 		return end;
 	}
+
 	public void setEnd(Integer end) {
 		this.end = end;
 	}
+	
+	
 }

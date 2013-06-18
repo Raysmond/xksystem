@@ -17,6 +17,14 @@ public class CourseSchedule extends BaseModelObject {
 	@ManyToOne
 	private TermCourse course;
 
+	public CourseSchedule(){
+		
+	}
+	public CourseSchedule(WeekDay weekday, int begin, int end) {
+		this.setWeekday(weekday);
+		this.setClasshour(new ClassHour(begin,end));
+	}
+
 	public static CourseSchedule create(WeekDay day, ClassHour hour,
 			IPersistenceManager pm) {
 		CourseSchedule schedule = new CourseSchedule();
@@ -30,21 +38,10 @@ public class CourseSchedule extends BaseModelObject {
 			Integer hourEnd, IPersistenceManager pm) {
 		CourseSchedule schedule = new CourseSchedule();
 		schedule.setWeekday(day);
-		ClassHour hour = new ClassHour();
-		hour.setBegin(hourBegin);
-		hour.setEnd(hourEnd);
+		ClassHour hour = new ClassHour(hourBegin,hourEnd);
 		schedule.setClasshour(hour);
 		pm.save(schedule);
 		return schedule;
-	}
-
-	public CourseSchedule() {
-
-	}
-
-	public CourseSchedule(WeekDay day, Integer hourBegin, Integer hourEnd) {
-		this.weekday = day;
-		this.classhour = new ClassHour(hourBegin, hourEnd);
 	}
 
 	/**
@@ -59,14 +56,6 @@ public class CourseSchedule extends BaseModelObject {
 			return true;
 		}
 		return false;
-	}
-
-	public TermCourse getCourse() {
-		return course;
-	}
-
-	public void setCourse(TermCourse course) {
-		this.course = course;
 	}
 
 	public WeekDay getWeekday() {
@@ -84,4 +73,14 @@ public class CourseSchedule extends BaseModelObject {
 	public void setClasshour(ClassHour classhour) {
 		this.classhour = classhour;
 	}
+
+	public TermCourse getCourse() {
+		return course;
+	}
+
+	public void setCourse(TermCourse course) {
+		this.course = course;
+	}
+	
+	
 }

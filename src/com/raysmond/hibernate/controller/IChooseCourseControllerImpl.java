@@ -27,10 +27,10 @@ public class IChooseCourseControllerImpl implements IChooseCourseController {
 			// if current students count is less than the students limit
 			// and the student has not chosen the course
 			// then precede choosing course
-			if (course.getStudents().size() < course.getStudentsLimit()
-					&& !course.getStudents().contains(student)
+			if (course.getCourseStudents().size() < course.getStudentsLimit()
+					&& !course.getCourseStudents().contains(student)
 					&& !student.getChoosedCourses().contains(course)) {
-				course.getStudents().add(student);
+				course.getCourseStudents().add(student);
 				student.getChoosedCourses().add(course);
 				persistenceManager.save(course);
 				persistenceManager.save(student);
@@ -44,8 +44,8 @@ public class IChooseCourseControllerImpl implements IChooseCourseController {
 	public boolean dropCourse(Student student, TermCourse course) {
 		if (course.getTerm().canChooseCourse()) {
 			// the student already chosen the course
-			if (course.getStudents().contains(student)) {
-				if (course.getStudents().remove(student)
+			if (course.getCourseStudents().contains(student)) {
+				if (course.getCourseStudents().remove(student)
 						&& student.getChoosedCourses().remove(course)) {
 					persistenceManager.save(course);
 					persistenceManager.save(student);
@@ -96,7 +96,7 @@ public class IChooseCourseControllerImpl implements IChooseCourseController {
 			Iterator<TermCourse> allCourses = term.getCourses().iterator();
 			while (allCourses.hasNext()) {
 				TermCourse course = allCourses.next();
-				if (course.getStudents().size() < course.getStudentsLimit()) {
+				if (course.getCourseStudents().size() < course.getStudentsLimit()) {
 					courses.add(course);
 				}
 			}

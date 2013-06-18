@@ -27,11 +27,11 @@ public class TestTermCourse extends HibernateBaseTest {
 	public void testConflictCourse() {
 		Term term = Term.create(2013, ChooseCourseStatus.NOT_STARTED,
 				ConcreteTerm.FIRST_TERM, getPersistenceManager());
-		TermCourse course0 = TermCourse.create(term, "OOT_0", "Z2207", 50,
+		TermCourse course0 = TermCourse.create(term, "CP1006","OOT_0", "Z2207", 50,
 				getPersistenceManager());
-		TermCourse course1 = TermCourse.create(term, "Software Engineering",
+		TermCourse course1 = TermCourse.create(term, "CP1007", "Software Engineering",
 				"Z2207", 50, getPersistenceManager());
-		TermCourse course2 = TermCourse.create(term, "Computer Architecture",
+		TermCourse course2 = TermCourse.create(term, "CP1008", "Computer Architecture",
 				"Z2208", 50, getPersistenceManager());
 
 		// schedule0 and schedule1 have no conflict
@@ -72,9 +72,9 @@ public class TestTermCourse extends HibernateBaseTest {
 	public void testAddNewScheduleToCourse() {
 		Term term = Term.create(2013, ChooseCourseStatus.NOT_STARTED,
 				ConcreteTerm.FIRST_TERM, getPersistenceManager());
-		TermCourse course0 = TermCourse.create(term, "OOT_0", "Z2207", 50,
+		TermCourse course0 = TermCourse.create(term,"CP1009", "OOT_0", "Z2207", 50,
 				getPersistenceManager());
-		TermCourse course1 = TermCourse.create(term, "OOT_1", "Z2207", 50,
+		TermCourse course1 = TermCourse.create(term,"CP10010", "OOT_1", "Z2207", 50,
 				getPersistenceManager());
 
 		CourseSchedule schedule0 = new CourseSchedule(WeekDay.Friday, 3, 4);

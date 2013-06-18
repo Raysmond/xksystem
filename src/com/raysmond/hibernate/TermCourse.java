@@ -41,10 +41,11 @@ public class TermCourse extends Course {
 	@OneToMany(mappedBy = "course")
 	private Collection<DropCourseRecord> dropCourseRecord =  new ArrayList<DropCourseRecord>();
 
-	public static TermCourse create(Term term, String name, String address,
+	public static TermCourse create(Term term,String courseId, String name, String address,
 			Integer studentsLimit, IPersistenceManager pm) {
 		TermCourse result = new TermCourse();
 		result.setTerm(term);
+		result.setCourseId(courseId);
 		result.setName(name);
 		result.setAddress(address);
 		result.setStudentsLimit(studentsLimit);
@@ -52,6 +53,7 @@ public class TermCourse extends Course {
 		pm.save(result);
 		return result;
 	}
+	
 
 	/**
 	 * To check whether two courses have conflict in address and schedule at the
@@ -111,80 +113,88 @@ public class TermCourse extends Course {
 		}
 	}
 
-	//-------------------
-	//getters and setters
-	
-	
-	
-	public Collection<Student> getFollowStudents() {
-		return followStudents;
-	}
-
-	public Collection<Student> getCourseStudents() {
-		return courseStudents;
-	}
-
-	public void setCourseStudents(Collection<Student> courseStudents) {
-		this.courseStudents = courseStudents;
-	}
-
-	public Collection<DropCourseRecord> getDropCourseRecord() {
-		return dropCourseRecord;
-	}
-
-	public void setDropCourseRecord(Collection<DropCourseRecord> dropCourseRecord) {
-		this.dropCourseRecord = dropCourseRecord;
-	}
-
-	public void setFollowStudents(Collection<Student> followStudents) {
-		this.followStudents = followStudents;
-	}
-
-	public Collection<Student> getStudents() {
-		return courseStudents;
-	}
-
-	public void setStudents(Collection<Student> courseStudents) {
-		this.courseStudents = courseStudents;
-	}
-
-	public Teacher getTeacher() {
-		return teacher;
-	}
-
-	public void setTeacher(Teacher teacher) {
-		this.teacher = teacher;
-	}
-
-	public Collection<CourseSchedule> getSchedule() {
-		return schedule;
-	}
-
-	public void setSchedule(Collection<CourseSchedule> schedule) {
-		this.schedule = schedule;
-	}
-
-	public Term getTerm() {
-		return term;
-	}
-
-	public void setTerm(Term term) {
-		this.term = term;
-	}
 
 	public String getAddress() {
 		return address;
 	}
 
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 
 	public Integer getStudentsLimit() {
 		return studentsLimit;
 	}
 
+
 	public void setStudentsLimit(Integer studentsLimit) {
 		this.studentsLimit = studentsLimit;
 	}
+
+
+	public Teacher getTeacher() {
+		return teacher;
+	}
+
+
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
+
+
+	public Term getTerm() {
+		return term;
+	}
+
+
+	public void setTerm(Term term) {
+		this.term = term;
+	}
+
+
+	public Collection<CourseSchedule> getSchedule() {
+		return schedule;
+	}
+
+
+	public void setSchedule(Collection<CourseSchedule> schedule) {
+		this.schedule = schedule;
+	}
+
+
+	public Collection<Student> getCourseStudents() {
+		return courseStudents;
+	}
+
+
+	public void setCourseStudents(Collection<Student> courseStudents) {
+		this.courseStudents = courseStudents;
+	}
+
+
+	public Collection<Student> getFollowStudents() {
+		return followStudents;
+	}
+
+
+	public void setFollowStudents(Collection<Student> followStudents) {
+		this.followStudents = followStudents;
+	}
+
+
+	public Collection<DropCourseRecord> getDropCourseRecord() {
+		return dropCourseRecord;
+	}
+
+
+	public void setDropCourseRecord(Collection<DropCourseRecord> dropCourseRecord) {
+		this.dropCourseRecord = dropCourseRecord;
+	}
+
+	//-------------------
+	//getters and setters
+
+	
 }

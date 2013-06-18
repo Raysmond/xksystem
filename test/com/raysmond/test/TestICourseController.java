@@ -49,7 +49,7 @@ public class TestICourseController extends HibernateBaseTest {
 		schedules.add(schedule0);
 		schedules.add(schedule1);
 
-		TermCourse course = courseController.registerTermCourse("OOT_2012",
+		TermCourse course = courseController.registerTermCourse("COMP130012","OOT_2012",
 				"Z2207", 50,schedules, teacher, term);
 		this.assertObjectPersisted(course);
 	}
@@ -116,7 +116,7 @@ public class TestICourseController extends HibernateBaseTest {
 		schedules.add(schedule1);
 		
 		// save course
-		TermCourse course = courseController.registerTermCourse("OOT_2012",
+		TermCourse course = courseController.registerTermCourse("COMP130012","OOT_2012",
 				"Z2207", 50,schedules, teacher, term);
 		this.assertObjectPersisted(course);
 

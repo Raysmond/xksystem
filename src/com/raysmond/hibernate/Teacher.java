@@ -25,15 +25,6 @@ public class Teacher extends Account {
 		pm.save(teacher);
 		return teacher;
 	}
-	
-	// getters and setters
-	public Collection<TermCourse> getCourses() {
-		return courses;
-	}
-
-	public void setCourses(Collection<TermCourse> courses) {
-		this.courses = courses;
-	}
 
 	public String getJobNumber() {
 		return jobNumber;
@@ -42,4 +33,14 @@ public class Teacher extends Account {
 	public void setJobNumber(String jobNumber) {
 		this.jobNumber = jobNumber;
 	}
+
+	public Collection<TermCourse> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(Collection<TermCourse> courses) {
+		this.courses = courses;
+	}
+	
+	
 }

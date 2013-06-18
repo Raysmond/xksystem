@@ -27,7 +27,7 @@ public interface ICourseController {
 	 * @param term 
 	 * @return the course created
 	 */
-	public TermCourse registerTermCourse(String name, String address,
+	public TermCourse registerTermCourse(String courseId,String name, String address,
 			Integer studentsLimit,Collection<CourseSchedule> schedules, Teacher teacher, Term term);
 
 	/**

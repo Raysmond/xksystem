@@ -48,6 +48,14 @@ public class DropCourseRecord extends BaseModelObject {
 		return record;
 	}
 
+	public Date getDropTime() {
+		return dropTime;
+	}
+
+	public void setDropTime(Date dropTime) {
+		this.dropTime = dropTime;
+	}
+
 	public TermCourse getCourse() {
 		return course;
 	}
@@ -63,12 +71,6 @@ public class DropCourseRecord extends BaseModelObject {
 	public void setStudent(Student student) {
 		this.student = student;
 	}
-
-	public Date getDropTime() {
-		return dropTime;
-	}
-
-	public void setDropTime(Date dropTime) {
-		this.dropTime = dropTime;
-	}
+	
+	
 }

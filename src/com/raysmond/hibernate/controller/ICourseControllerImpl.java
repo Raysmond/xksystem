@@ -53,7 +53,7 @@ public class ICourseControllerImpl implements ICourseController {
 		}
 		// students limit cannot be smaller than the students
 		// count who already chosen the course
-		if (studentsLimit < course.getStudents().size()) {
+		if (studentsLimit < course.getCourseStudents().size()) {
 			return false;
 		}
 		course.setStudentsLimit(studentsLimit);
@@ -62,11 +62,12 @@ public class ICourseControllerImpl implements ICourseController {
 	}
 
 	@Override
-	public TermCourse registerTermCourse(String name, String address,
+	public TermCourse registerTermCourse(String courseId,String name, String address,
 			Integer studentsLimit, Collection<CourseSchedule> schedules,
 			Teacher teacher, Term term) {
 		// create a course instance
 		TermCourse course = new TermCourse();
+		course.setCourseId(courseId);
 		course.setName(name);
 		course.setAddress(address);
 		course.setStudentsLimit(studentsLimit);

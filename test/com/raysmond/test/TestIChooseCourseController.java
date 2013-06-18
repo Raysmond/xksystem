@@ -39,7 +39,7 @@ public class TestIChooseCourseController extends HibernateBaseTest {
 				ConcreteTerm.SECOND_TERM, getPersistenceManager());
 
 		// create a new course with 5 students limit
-		TermCourse course = TermCourse.create(term, "OOT", "Z2207", 5,
+		TermCourse course = TermCourse.create(term,"CP1006", "OOT", "Z2207", 5,
 				getPersistenceManager());
 
 		// create 5 students and let them choose the course above
@@ -56,11 +56,11 @@ public class TestIChooseCourseController extends HibernateBaseTest {
 				getPersistenceManager());
 		// let the 6th student choose the course
 		assertFalse(controller.chooseCourse(student, course));
-		assertEquals(5, course.getStudents().size());
+		assertEquals(5, course.getCourseStudents().size());
 
 		TermCourse savedCourse = getPersistenceManager().get(TermCourse.class,
 				course.getId());
-		assertEquals(5, savedCourse.getStudents().size());
+		assertEquals(5, savedCourse.getCourseStudents().size());
 
 		for (int i = 0; i < 5; ++i) {
 			Student studentTmp = getPersistenceManager().get(Student.class,
@@ -78,7 +78,7 @@ public class TestIChooseCourseController extends HibernateBaseTest {
 				ConcreteTerm.SECOND_TERM, getPersistenceManager());
 
 		// create a new course
-		TermCourse course = TermCourse.create(term, "OOT", "Z2207", 50,
+		TermCourse course = TermCourse.create(term, "CP1006","OOT", "Z2207", 50,
 				getPersistenceManager());
 
 		// create a list of students with size 5 and let them choose the course
@@ -93,7 +93,7 @@ public class TestIChooseCourseController extends HibernateBaseTest {
 		// before dropping course, there are 5 students in the course
 		TermCourse savedCourse = getPersistenceManager().get(TermCourse.class,
 				course.getId());
-		assertEquals(5, savedCourse.getStudents().size());
+		assertEquals(5, savedCourse.getCourseStudents().size());
 
 		// let the first student drop the course
 		controller.dropCourse(students.get(0), course);
@@ -101,8 +101,8 @@ public class TestIChooseCourseController extends HibernateBaseTest {
 		// after one student dropping course, there are 4 students in the course
 		TermCourse savedCourseAfterDropping = getPersistenceManager().get(
 				TermCourse.class, course.getId());
-		assertEquals(4, savedCourseAfterDropping.getStudents().size());
-		assertFalse(savedCourseAfterDropping.getStudents().contains(
+		assertEquals(4, savedCourseAfterDropping.getCourseStudents().size());
+		assertFalse(savedCourseAfterDropping.getCourseStudents().contains(
 				students.get(0)));
 
 		// check all boundaries
@@ -113,9 +113,9 @@ public class TestIChooseCourseController extends HibernateBaseTest {
 			// course
 			TermCourse savedCourseAfterDroppingTmp = getPersistenceManager()
 					.get(TermCourse.class, course.getId());
-			assertEquals(4 - i, savedCourseAfterDroppingTmp.getStudents()
+			assertEquals(4 - i, savedCourseAfterDroppingTmp.getCourseStudents()
 					.size());
-			assertFalse(savedCourseAfterDroppingTmp.getStudents().contains(
+			assertFalse(savedCourseAfterDroppingTmp.getCourseStudents().contains(
 					students.get(i)));
 		}
 	}
@@ -125,11 +125,11 @@ public class TestIChooseCourseController extends HibernateBaseTest {
 	public void testGetAvailableCourses() {
 		Term term = Term.create(2013, ChooseCourseStatus.STARTED,
 				ConcreteTerm.SECOND_TERM, getPersistenceManager());
-		TermCourse course0 = TermCourse.create(term, "OOT", "Z2207", 5,
+		TermCourse course0 = TermCourse.create(term,"CP1002", "OOT", "Z2207", 5,
 				getPersistenceManager());
-		TermCourse course1 = TermCourse.create(term, "OOT", "Z2208", 7,
+		TermCourse course1 = TermCourse.create(term,"CP1003", "OOT", "Z2208", 7,
 				getPersistenceManager());
-		TermCourse course2 = TermCourse.create(term, "OOT", "Z2209", 9,
+		TermCourse course2 = TermCourse.create(term,"CP1004", "OOT", "Z2209", 9,
 				getPersistenceManager());
 
 		this.assertObjectPersisted(course0);
@@ -160,7 +160,7 @@ public class TestIChooseCourseController extends HibernateBaseTest {
 				ConcreteTerm.SECOND_TERM, getPersistenceManager());
 
 		// create a new course
-		TermCourse course = TermCourse.create(term, "OOT", "Z2207", 5,
+		TermCourse course = TermCourse.create(term,"CP1005", "OOT", "Z2207", 5,
 				getPersistenceManager());
 
 		// create students
@@ -201,7 +201,7 @@ public class TestIChooseCourseController extends HibernateBaseTest {
 				ConcreteTerm.SECOND_TERM, getPersistenceManager());
 
 		// create a new course
-		TermCourse course = TermCourse.create(term, "OOT", "Z2207", 5,
+		TermCourse course = TermCourse.create(term,"CP1006", "OOT", "Z2207", 5,
 				getPersistenceManager());
 
 		// create students

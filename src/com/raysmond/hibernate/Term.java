@@ -41,7 +41,7 @@ public class Term extends BaseModelObject {
 	}
 
 	/**
-	 * Check whether the schedule and address of a course has conflict with
+	 * Check whether the courseID, schedule and address of a course has conflict with
 	 * other courses in the term
 	 * 
 	 * @param termCourse
@@ -53,31 +53,16 @@ public class Term extends BaseModelObject {
 			TermCourse course = coursesIter.next();
 			if (course.equals(termCourse))
 				continue;
-			if (course.isCourseConflict(termCourse)) {
+			if (course.isEqualCourseId(termCourse)
+					|| course.isCourseConflict(termCourse)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public ChooseCourseStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(ChooseCourseStatus status) {
-		this.status = status;
-	}
-
 	public boolean canChooseCourse() {
 		return status == ChooseCourseStatus.STARTED;
-	}
-
-	public Collection<TermCourse> getCourses() {
-		return courses;
-	}
-
-	public void setCourses(Collection<TermCourse> courses) {
-		this.courses = courses;
 	}
 
 	public Integer getYear() {
@@ -88,6 +73,14 @@ public class Term extends BaseModelObject {
 		this.year = year;
 	}
 
+	public ChooseCourseStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(ChooseCourseStatus status) {
+		this.status = status;
+	}
+
 	public ConcreteTerm getConcreteTerm() {
 		return concreteTerm;
 	}
@@ -95,5 +88,15 @@ public class Term extends BaseModelObject {
 	public void setConcreteTerm(ConcreteTerm concreteTerm) {
 		this.concreteTerm = concreteTerm;
 	}
+
+	public Collection<TermCourse> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(Collection<TermCourse> courses) {
+		this.courses = courses;
+	}
+	
+	
 
 }
